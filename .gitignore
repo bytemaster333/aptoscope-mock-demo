@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Demo data
+mock/aptos_logs.db
+
+# Editor
+.vscode/
+.idea/
+
+# macOS
+.DS_Store

@@ -1,0 +1,354 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P70277D346164BFA1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P70277D346164BFA1"
+          },
+          "format": "table",
+          "queryText": "SELECT\n  datetime(timestamp_ms/1000.0,'unixepoch','localtime') AS timestamp,\n  grp                              AS command,\n  subcommand,\n  network,\n  profile,\n  args,\n  duration_ms                      AS duration,\n  exit_code,\n  substr(COALESCE(stderr,''),1,120) AS error\nFROM logs\nORDER BY timestamp_ms DESC\nLIMIT 100;\n",
+          "queryType": "table",
+          "rawQuery": true,
+          "rawQueryText": "SELECT\n  datetime(timestamp_ms/1000.0,'unixepoch','localtime') AS timestamp,\n  grp                              AS command,\n  subcommand,\n  network,\n  profile,\n  args,\n  duration_ms                      AS duration,\n  exit_code,\n  substr(COALESCE(stderr,''),1,120) AS error\nFROM logs\nORDER BY timestamp_ms DESC\nLIMIT 100;\n",
+          "refId": "A",
+          "timeColumns": [
+            "time",
+            "ts"
+          ]
+        }
+      ],
+      "title": "📋 Full CLI Command Log",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P70277D346164BFA1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P70277D346164BFA1"
+          },
+          "format": "time_series",
+          "queryText": "SELECT\n  timestamp_ms AS time,\n  duration_ms  AS value\nFROM logs\nORDER BY time ASC;\n",
+          "queryType": "table",
+          "rawQuery": true,
+          "rawQueryText": "SELECT\n  timestamp_ms AS time,\n  duration_ms  AS value\nFROM logs\nORDER BY time ASC;\n",
+          "refId": "B",
+          "timeColumns": [
+            "time",
+            "ts"
+          ]
+        }
+      ],
+      "title": "⏱ CLI Command Duration Over Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P70277D346164BFA1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 11,
+        "x": 0,
+        "y": 19
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P70277D346164BFA1"
+          },
+          "format": "table",
+          "queryText": "SELECT\n  COALESCE(subcommand,'unknown') AS metric,\n  COUNT(*)                       AS value\nFROM logs\nGROUP BY subcommand\nORDER BY value DESC;\n",
+          "queryType": "table",
+          "rawQuery": true,
+          "rawQueryText": "SELECT\n  COALESCE(subcommand,'unknown') AS metric,\n  COUNT(*)                       AS value\nFROM logs\nGROUP BY subcommand\nORDER BY value DESC;\n",
+          "refId": "C",
+          "timeColumns": [
+            "time",
+            "ts"
+          ]
+        }
+      ],
+      "title": "🔧 Subcommand Usage Breakdown",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P70277D346164BFA1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 13,
+        "x": 11,
+        "y": 19
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P70277D346164BFA1"
+          },
+          "format": "table",
+          "queryText": "SELECT\n  SUM(CASE WHEN exit_code = 0 THEN 1 ELSE 0 END) AS \"✅ Success\",\n  SUM(CASE WHEN exit_code <> 0 THEN 1 ELSE 0 END) AS \"❌ Failure\"\nFROM logs;\n",
+          "queryType": "table",
+          "rawQuery": true,
+          "rawQueryText": "SELECT\n  SUM(CASE WHEN exit_code = 0 THEN 1 ELSE 0 END) AS \"✅ Success\",\n  SUM(CASE WHEN exit_code <> 0 THEN 1 ELSE 0 END) AS \"❌ Failure\"\nFROM logs;\n",
+          "refId": "D",
+          "timeColumns": [
+            "time",
+            "ts"
+          ]
+        }
+      ],
+      "title": "✅ Success vs ❌ Failure",
+      "type": "bargauge"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2070-05-09T17:40:25.592Z",
+    "to": "2070-06-10T12:06:00.592Z"
+  },
+  "timepicker": {},
+  "timezone": "utc",
+  "title": "Aptoscope — Aptos CLI Telemetry (Mock)",
+  "uid": "devh9dg1eppmod",
+  "version": 4,
+  "weekStart": ""
+}
