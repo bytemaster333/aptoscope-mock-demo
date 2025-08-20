@@ -1,23 +1,40 @@
-# Aptoscope — Mock Grafana Demo (Aptos CLI Telemetry)
+# Aptoscope — Mock Grafana Demo (Aptos-style CLI Telemetry)
 
-**Status:** 🧪 **Mock Demo (no real Aptos required)**  
-**What it is:** A zero-dependency showcase of how Aptos CLI telemetry **would look** in Grafana using a **seeded SQLite** database. Ideal for grant reviewers: quick to run, clear visuals, and no chain/tooling setup.
+> **Status:** **Mock demo** (seeded SQLite data) · **Local-first** · **Dockerized**  
+> **One-liner:** Turn Aptos CLI activity into clear, actionable operational insight—before wiring any real collectors.
 
----
+![Aptoscope Demo](./screenshot.png)
 
-## Why this demo?
-- ⚡ **Fast to evaluate:** `make seed && make up` brings up Grafana with preloaded data.
-- 🔍 **What you’ll see:** CLI activity, duration trends, subcommand breakdown, and success vs failure — exactly the kind of reliability/observability signals we’ll ship for real Aptos workflows.
-- 🔒 **Local-first:** No cloud, no external APIs. Everything runs in Docker on your machine.
+## What it is
+Aptoscope is a **Grafana dashboard** powered by a **seeded SQLite** dataset that mimics Aptos CLI telemetry. It lets reviewers experience the **final UX**—charts, tables, and KPIs—without installing Aptos or running collectors.
 
-> **Note:** This is a **mock** dataset: numbers and errors are synthetic. It demonstrates UI/queries only — not live metrics.
+## Why it matters (benefits)
+- **Faster diagnosis:** Visualize command failures, spikes, and slowdowns (e.g., `move publish`).
+- **Reliability metrics that stick:** Success rate, latency trends, and subcommand usage become standard team KPIs.
+- **Zero friction:** Works fully offline with mock data; real collectors can be plugged in later with the same schema.
+- **Privacy by design:** Local database & Docker; no external services required by default.
 
----
+## What you’ll see
+- **Full CLI Command Log:** recent commands with arguments, profiles, and exit codes.
+- **Command Duration Over Time:** trend of execution latencies (ms).
+- **Subcommand Usage Breakdown:** which Move/CLI operations run most.
+- **Success vs Failure:** quick health snapshot for the current window.
 
 ## Quickstart
-
 ```bash
 cp .env.example .env
 make seed
 make up
-# Open http://localhost:3000  (user: admin, pass: admin)
+# Open: http://localhost:3000  (user: admin, pass: admin)
+```
+
+---
+
+## How it works
+- **Data:** scripts/generate_mock_db.py seeds mock/aptos_logs.db with realistic Aptos-style events.
+- **Provisioning:** Grafana auto-loads the SQLite datasource and the Aptoscope dashboard.
+- **Schema:** logs(timestamp_ms, grp, subcommand, duration_ms, exit_code, network, profile, args, stdout, stderr).
+
+---
+
+## Screenshots
