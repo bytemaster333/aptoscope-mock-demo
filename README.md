@@ -26,13 +26,9 @@ make up
 # Open: http://localhost:3000  (user: admin, pass: admin)
 ```
 
----
-
 ## How it works
 - **Data:** scripts/generate_mock_db.py seeds mock/aptos_logs.db with realistic Aptos-style events.
 - **Provisioning:** Grafana auto-loads the SQLite datasource and the Aptoscope dashboard.
 - **Schema:** logs(timestamp_ms, grp, subcommand, duration_ms, exit_code, network, profile, args, stdout, stderr).
-
----
 
 ## Screenshots
