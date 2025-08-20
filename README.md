@@ -3,8 +3,6 @@
 > **Status:** **Mock demo** (seeded SQLite data) · **Local-first** · **Dockerized**  
 > **One-liner:** Turn Aptos CLI activity into clear, actionable operational insight—before wiring any real collectors.
 
-![Aptoscope Demo](./screenshot.png)
-
 ## What it is
 Aptoscope is a **Grafana dashboard** powered by a **seeded SQLite** dataset that mimics Aptos CLI telemetry. It lets reviewers experience the **final UX**—charts, tables, and KPIs—without installing Aptos or running collectors.
 
